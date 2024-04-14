@@ -1,0 +1,33 @@
+import express from "express";
+import {
+  getUserDetailById,
+  getUserDetails,
+  register,
+} from "../controllers/user.controller.js";
+
+const router = express.Router();
+
+router.get("/all", getUserDetails);
+
+router.post("/new", register);
+
+router.get("/userid/:id", getUserDetailById);
+
+/*
+// If you want to perform get,post,put,update methods on same route then you can do this :
+//Note --> The following COntrollers are not defined so it will throw errors
+
+// method - 1
+router.get("/userid/:id", getUserById);
+router.put("/userid/:id", updateUserlById);
+router.delete("/userid/:id", deleteUserById);
+
+// Method - 2 (Chaining of methods) This method is preferable or better
+router
+  .route("/userid/:id")
+  .get(getUserById)
+  .put(updateUserlById)
+  .delete(deleteUserById);
+*/
+
+export default router;

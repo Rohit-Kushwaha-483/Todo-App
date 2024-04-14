@@ -1,0 +1,62 @@
+
+import { User } from "../models/user.model.js";
+
+export const getUserDetails = async (req, res) => {
+  try {
+    const users = await User.find({}); // Await the execution of the query
+    res.status(200).json({
+      success: true,
+      users,
+    });
+  } catch (err) {
+    console.error("Error fetching users:", err);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching users",
+    });
+  }
+};
+
+
+export const login = async(req,res,next)=>{
+
+}
+
+export const register = async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    // await User.create({
+    //   name: "Rohit Kushwaha",
+    //   email: "rohit123@gmail.com",
+    //   password: "123456",
+    // }); // Await the execution of the query
+
+    await User.create({
+      name,
+      email,
+      password,
+    }); // Await the execution of the query
+
+    res.status(201).cookie("temp", "sample-cookie").json({
+      success: true,
+      message: "Register Successfully",
+    });
+  } catch (err) {
+    console.error("Error fetching users:", err);
+    res.status(500).json({
+      success: false,
+      message: "Error while Registering the user",
+    });
+  }
+}; 
+
+
+
+export const getUserDetailById = async (req, res) => {
+  const { id } = req.params;
+  const users = await User.findById(id);
+  res.json({
+    sucess: true,
+    users,
+  });
+};
